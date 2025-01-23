@@ -1,14 +1,13 @@
 package tests;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import io.restassured.path.json.JsonPath;
 import io.restassured.specification.RequestSpecification;
 import static io.restassured.RestAssured.*;
-import java.io.IOException;
-import java.util.ArrayList;
-
+import static org.hamcrest.Matchers.*;
 import com.map.pojoClasses.AddPlaceRequest;
 import com.map.pojoClasses.Location;
-
 import utilities.SpecificationBuilder;
 
 public class MapsAPI
@@ -39,7 +38,7 @@ public class MapsAPI
 
 		String response = given().spec(requestSpecification).log().all().body(addPlaceRequestBody)
 		.when().post("/maps/api/place/add/json")
-		.then().log().all().assertThat().statusCode(200).extract().response().asString();
+		.then().log().all().assertThat().statusCode(200).body("status", equalTo("OK")).body("scope", equalTo("APP")).extract().response().asString();
 
 		JsonPath js=new JsonPath(response);
 		String placeID=js.getString("place_id");

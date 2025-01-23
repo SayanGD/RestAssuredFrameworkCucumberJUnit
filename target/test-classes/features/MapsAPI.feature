@@ -1,22 +1,9 @@
 Feature: Maps API
 
   @tag1
-  Scenario: Title of your scenario
-    Given I want to write a step with precondition
-    And some other precondition
-    When I complete action
-    And some other action
-    And yet another action
-    Then I validate the outcomes
-    And check more outcomes
-
-  @tag2
-  Scenario Outline: Title of your scenario outline
-    Given I want to write a step with <name>
-    When I check for the <value> in step
-    Then I verify the <status> in step
-
-    Examples: 
-      | name  | value | status  |
-      | name1 |     5 | success |
-      | name2 |     7 | Fail    |
+  Scenario: Validate if a place is successfully added to the map using AddPlace API
+    Given I have the AddPlace request body
+    When I call AddPlace API with POST HTTP request 
+    Then I should get a successful response with 200 status code
+    And I should get status as OK
+    And I should get scope as AAP
