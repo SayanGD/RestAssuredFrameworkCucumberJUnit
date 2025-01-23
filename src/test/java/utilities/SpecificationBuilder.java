@@ -15,6 +15,7 @@ public class SpecificationBuilder
 		String baseURI=prop.getProperty("baseURI");
 		String queryParamKey=prop.getProperty("queryParamKey");
 		String queryParamValue=prop.getProperty("queryParamValue");
+
 		reqSpec=new RequestSpecBuilder().setBaseUri(baseURI).setContentType(ContentType.JSON).addQueryParam(queryParamKey, queryParamValue).build();
 		return reqSpec;
 	}

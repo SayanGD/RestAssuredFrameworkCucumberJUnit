@@ -2,9 +2,7 @@ package tests;
 
 import io.restassured.path.json.JsonPath;
 import io.restassured.specification.RequestSpecification;
-
 import static io.restassured.RestAssured.*;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import pojoClasses.AddPlaceRequest;
@@ -33,7 +31,7 @@ public class MapsAPI
 		addPlaceRequestBody.setTypes(types);
 		addPlaceRequestBody.setWebsite("http://www.google.com");
 		addPlaceRequestBody.setLanguage("French-IN");
-		
+
 		SpecificationBuilder spec=new SpecificationBuilder();
 		RequestSpecification requestSpecification=spec.getRequestSpecification();
 
