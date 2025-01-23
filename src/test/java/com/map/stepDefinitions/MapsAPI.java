@@ -1,4 +1,4 @@
-package tests;
+package com.map.stepDefinitions;
 
 import java.io.IOException;
 import java.util.ArrayList;

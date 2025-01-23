@@ -5,5 +5,5 @@ Feature: Maps API
     Given I have the AddPlace request body
     When I call AddPlace API with POST HTTP request 
     Then I should get a successful response with 200 status code
-    And I should get status as OK
-    And I should get scope as AAP
+    And I should get "status" as "OK"
+    And I should get "scope" as "AAP"
