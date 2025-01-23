@@ -1,17 +1,20 @@
 package tests;
 
-import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
 import io.restassured.path.json.JsonPath;
+import io.restassured.specification.RequestSpecification;
+
 import static io.restassured.RestAssured.*;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import pojoClasses.AddPlaceRequest;
 import pojoClasses.Location;
+import utilities.SpecificationBuilder;
 
 public class MapsAPI
 {
 
-	public static void main(String[] args)
+	public static void main(String[] args) throws IOException
 	{
 		Location location=new Location();
 		location.setLat(-38.383494);
@@ -30,9 +33,11 @@ public class MapsAPI
 		addPlaceRequestBody.setTypes(types);
 		addPlaceRequestBody.setWebsite("http://www.google.com");
 		addPlaceRequestBody.setLanguage("French-IN");
+		
+		SpecificationBuilder spec=new SpecificationBuilder();
+		RequestSpecification requestSpecification=spec.getRequestSpecification();
 
-		RestAssured.baseURI="https://rahulshettyacademy.com";
-		String response = given().log().all().contentType(ContentType.JSON).queryParam("key", "qaclick123").body(addPlaceRequestBody)
+		String response = given().spec(requestSpecification).log().all().body(addPlaceRequestBody)
 		.when().post("/maps/api/place/add/json")
 		.then().log().all().assertThat().statusCode(200).extract().response().asString();
 
@@ -44,7 +49,7 @@ public class MapsAPI
 				+ "}\r\n"
 				+ "";
 
-		given().log().all().contentType(ContentType.JSON).queryParam("key", "qaclick123").body(deletePlaceRequestBody)
+		given().spec(requestSpecification).log().all().body(deletePlaceRequestBody)
 		.when().delete("/maps/api/place/delete/json")
 		.then().log().all().assertThat().statusCode(200);
 	}
