@@ -5,8 +5,10 @@ import io.restassured.specification.RequestSpecification;
 import static io.restassured.RestAssured.*;
 import java.io.IOException;
 import java.util.ArrayList;
-import pojoClasses.AddPlaceRequest;
-import pojoClasses.Location;
+
+import com.map.pojoClasses.AddPlaceRequest;
+import com.map.pojoClasses.Location;
+
 import utilities.SpecificationBuilder;
 
 public class MapsAPI

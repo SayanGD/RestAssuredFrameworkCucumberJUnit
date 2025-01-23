@@ -1,4 +1,4 @@
-package pojoClasses;
+package com.map.pojoClasses;
 
 import java.util.List;
 
