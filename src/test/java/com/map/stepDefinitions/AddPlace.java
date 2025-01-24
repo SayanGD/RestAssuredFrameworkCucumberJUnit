@@ -15,11 +15,12 @@ import com.map.utils.TestDataBuilder;
 public class AddPlace
 {
 
+	
 	@Given("I have the AddPlace request body")
 	public void i_have_the_add_place_request_body() throws IOException
 	{
-		TestDataBuilder testData=new TestDataBuilder();
-		AddPlaceRequest addPlaceRequestBody=testData.createAddPlaceRequestBody();
+		TestDataBuilder testDataBuilder=new TestDataBuilder();
+		AddPlaceRequest addPlaceRequestBody=testDataBuilder.createAddPlaceRequestBody();
 
 		SpecificationBuilder spec=new SpecificationBuilder();
 		RequestSpecification requestSpecification=spec.getRequestSpecification();
