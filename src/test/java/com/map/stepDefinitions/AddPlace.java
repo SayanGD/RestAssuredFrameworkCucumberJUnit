@@ -9,6 +9,8 @@ import static org.hamcrest.Matchers.equalTo;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
+
+import com.map.endpoints.EndPoints;
 import com.map.pojoClasses.AddPlaceRequest;
 import com.map.utils.SpecificationBuilder;
 import com.map.utils.TestDataBuilder;
@@ -29,10 +31,11 @@ public class AddPlace extends SpecificationBuilder
 		//getRequestSpecification() method is from parent SpecificationBuilder class created by me, so no object creation is needed to call it
 	}
 
-	@When("I call AddPlace API with {string} HTTP request")
-	public void i_call_add_place_api_with_http_request(String HTTPMethod)
+	@When("I call {string} with {string} HTTP request")
+	public void i_call_add_place_api_with_http_request(String APIName, String HTTPMethod)
 	{
-		response=requestSpecification.when().post("/maps/api/place/add/json");
+		String endPoint=EndPoints.valueOf(APIName).getPath();
+		response=requestSpecification.when().post(endPoint);
 	}
 
 	@Then("I should get a successful response with {int} status code")
