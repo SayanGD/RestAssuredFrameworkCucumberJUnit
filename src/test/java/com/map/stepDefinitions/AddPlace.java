@@ -12,40 +12,39 @@ import com.map.pojoClasses.AddPlaceRequest;
 import com.map.utils.SpecificationBuilder;
 import com.map.utils.TestDataBuilder;
 
-public class AddPlace
+public class AddPlace extends SpecificationBuilder
 {
 
-	
+	RequestSpecification requestSpecification;
+
 	@Given("I have the AddPlace request body")
 	public void i_have_the_add_place_request_body() throws IOException
 	{
 		TestDataBuilder testDataBuilder=new TestDataBuilder();
 		AddPlaceRequest addPlaceRequestBody=testDataBuilder.createAddPlaceRequestBody();
 
-		SpecificationBuilder spec=new SpecificationBuilder();
-		RequestSpecification requestSpecification=spec.getRequestSpecification();
-
-		String response = given().spec(requestSpecification).log().all().body(addPlaceRequestBody)
-		.when().post("/maps/api/place/add/json")
-		.then().log().all().assertThat().statusCode(200).body("status", equalTo("OK")).body("scope", equalTo("APP")).extract().response().asString();
-
-		JsonPath js=new JsonPath(response);
-		String placeID=js.getString("place_id");
-
-		String deletePlaceRequestBody="{\r\n"
-				+ "    \"place_id\":\""+placeID+"\"\r\n"
-				+ "}\r\n"
-				+ "";
-
-		given().spec(requestSpecification).log().all().body(deletePlaceRequestBody)
-		.when().delete("/maps/api/place/delete/json")
-		.then().log().all().assertThat().statusCode(200);
+		requestSpecification=given().spec(getRequestSpecification()).body(addPlaceRequestBody);
+		//getRequestSpecification() method is from parent SpecificationBuilder class created by me, so no object creation is needed to call it
 	}
 
 	@When("I call AddPlace API with POST HTTP request")
 	public void i_call_add_place_api_with_post_http_request()
 	{
-	   
+		String response = given().spec(requestSpecification)
+				.when().post("/maps/api/place/add/json")
+				.then().log().all().assertThat().statusCode(200).body("status", equalTo("OK")).body("scope", equalTo("APP")).extract().response().asString();
+
+		JsonPath js=new JsonPath(response);
+		String placeID=js.getString("place_id");
+
+		String deletePlaceRequestBody="{\r\n"
+					+ "    \"place_id\":\""+placeID+"\"\r\n"
+					+ "}\r\n"
+					+ "";
+
+		given().spec(requestSpecification).log().all().body(deletePlaceRequestBody)
+		.when().delete("/maps/api/place/delete/json")
+		.then().log().all().assertThat().statusCode(200);
 	}
 
 	@Then("I should get a successful response with {int} status code")

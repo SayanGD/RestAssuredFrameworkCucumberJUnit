@@ -1,6 +1,6 @@
 Feature: Maps API
 
-  @tag1
+  @AddPlace @Regression
   Scenario: Validate if a place is successfully added to the map using AddPlace API
     Given I have the AddPlace request body
     When I call AddPlace API with POST HTTP request 
