@@ -7,6 +7,7 @@ import io.cucumber.java.en.When;
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
 import io.restassured.path.json.JsonPath;
+import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import com.map.pojoClasses.AddPlaceRequest;
 import com.map.utils.SpecificationBuilder;
@@ -27,14 +28,15 @@ public class AddPlace extends SpecificationBuilder
 		//getRequestSpecification() method is from parent SpecificationBuilder class created by me, so no object creation is needed to call it
 	}
 
-	@When("I call AddPlace API with POST HTTP request")
-	public void i_call_add_place_api_with_post_http_request()
+	@When("I call AddPlace API with {string} HTTP request")
+	public void i_call_add_place_api_with_http_request(String HTTPMethod)
 	{
-		String response = given().spec(requestSpecification)
-				.when().post("/maps/api/place/add/json")
+		Response response=requestSpecification.when().post("/maps/api/place/add/json");
+		
+		String responseBody = response
 				.then().log().all().assertThat().statusCode(200).body("status", equalTo("OK")).body("scope", equalTo("APP")).extract().response().asString();
 
-		JsonPath js=new JsonPath(response);
+		JsonPath js=new JsonPath(responseBody);
 		String placeID=js.getString("place_id");
 
 		String deletePlaceRequestBody="{\r\n"
