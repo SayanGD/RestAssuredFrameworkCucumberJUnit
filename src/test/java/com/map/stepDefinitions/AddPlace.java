@@ -1,7 +1,6 @@
 package com.map.stepDefinitions;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -10,7 +9,6 @@ import static org.hamcrest.Matchers.equalTo;
 import io.restassured.path.json.JsonPath;
 import io.restassured.specification.RequestSpecification;
 import com.map.pojoClasses.AddPlaceRequest;
-import com.map.pojoClasses.Location;
 import com.map.utils.SpecificationBuilder;
 import com.map.utils.TestDataBuilder;
 
