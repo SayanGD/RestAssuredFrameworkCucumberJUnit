@@ -9,7 +9,6 @@ import static org.hamcrest.Matchers.equalTo;
 import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-
 import com.map.endpoints.EndPoints;
 import com.map.pojoClasses.AddPlaceRequest;
 import com.map.utils.SpecificationBuilder;
@@ -35,7 +34,7 @@ public class AddPlace extends SpecificationBuilder
 	public void i_call_add_place_api_with_http_request(String APIName, String HTTPMethod)
 	{
 		String endPoint=EndPoints.valueOf(APIName).getPath();
-		response=requestSpecification.when().post(endPoint);
+		response=requestSpecification.when().post(endPoint); //building the response
 	}
 
 	@Then("I should get a successful response with {int} status code")
