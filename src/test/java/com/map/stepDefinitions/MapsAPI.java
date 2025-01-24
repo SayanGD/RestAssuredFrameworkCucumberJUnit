@@ -8,7 +8,7 @@ import static io.restassured.RestAssured.*;
 import static org.hamcrest.Matchers.*;
 import com.map.pojoClasses.AddPlaceRequest;
 import com.map.pojoClasses.Location;
-import utilities.SpecificationBuilder;
+import com.map.utils.SpecificationBuilder;
 
 public class MapsAPI
 {

@@ -11,7 +11,8 @@ import io.restassured.path.json.JsonPath;
 import io.restassured.specification.RequestSpecification;
 import com.map.pojoClasses.AddPlaceRequest;
 import com.map.pojoClasses.Location;
-import utilities.SpecificationBuilder;
+import com.map.utils.SpecificationBuilder;
+import com.map.utils.TestDataBuilder;
 
 public class AddPlace
 {
@@ -19,23 +20,8 @@ public class AddPlace
 	@Given("I have the AddPlace request body")
 	public void i_have_the_add_place_request_body() throws IOException
 	{
-		Location location=new Location();
-		location.setLat(-38.383494);
-		location.setLng(33.427362);
-
-		ArrayList<String> types=new ArrayList<>();
-		types.add("shoe park");
-		types.add("shop");
-
-		AddPlaceRequest addPlaceRequestBody=new AddPlaceRequest();
-		addPlaceRequestBody.setLocation(location);
-		addPlaceRequestBody.setAccuracy(50);
-		addPlaceRequestBody.setName("Frontline house");
-		addPlaceRequestBody.setPhone_number("+91-9838933937");
-		addPlaceRequestBody.setAddress("29, side layout, cohen 09");
-		addPlaceRequestBody.setTypes(types);
-		addPlaceRequestBody.setWebsite("http://www.google.com");
-		addPlaceRequestBody.setLanguage("French-IN");
+		TestDataBuilder testData=new TestDataBuilder();
+		AddPlaceRequest addPlaceRequestBody=testData.createAddPlaceRequestBody();
 
 		SpecificationBuilder spec=new SpecificationBuilder();
 		RequestSpecification requestSpecification=spec.getRequestSpecification();
