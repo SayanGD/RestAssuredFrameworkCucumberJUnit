@@ -5,7 +5,7 @@ public enum EndPoints
 	AddPlaceAPI("/maps/api/place/add/json"),
 	GetPlaceAPI(""),
 	UpdatePlaceAPI(""),
-	DeletePlaceAPI(""),;
+	DeletePlaceAPI("/maps/api/place/delete/json"),;
 
 	private String path;
 

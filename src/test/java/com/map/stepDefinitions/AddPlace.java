@@ -35,8 +35,19 @@ public class AddPlace extends SpecificationBuilder
 	@When("I call {string} with {string} HTTP request")
 	public void i_call_add_place_api_with_http_request(String APIName, String HTTPMethod)
 	{
-		String endPoint=EndPoints.valueOf(APIName).getPath();
-		response=requestSpecification.when().post(endPoint); //building the response
+		String endPoint=EndPoints.valueOf(APIName).getPath(); //getting the relevant end-point from the Enum where all the end-points are kept
+
+		switch(HTTPMethod)
+		{
+			case "POST": response=requestSpecification.when().post(endPoint); //building the response
+						break;
+			case "GET": response=requestSpecification.when().get(endPoint); //building the response
+						break;
+			case "PUT": response=requestSpecification.when().put(endPoint); //building the response
+						break;
+			case "DELETE": response=requestSpecification.when().delete(endPoint); //building the response
+						break;			
+		}
 	}
 
 	@Then("I should get a successful response with {int} status code")
@@ -56,13 +67,15 @@ public class AddPlace extends SpecificationBuilder
 	}
 
 	@Then("I should be able to delete the place")
-	public void i_should_be_able_to_delete_the_place()
+	public void i_should_be_able_to_delete_the_place() throws IOException
 	{
 		placeID=js.getString("place_id");
 
 		String deletePlaceRequestBody=testDataBuilder.createDeletePlaceRequestBody(placeID);
-		given().spec(requestSpecification).log().all().body(deletePlaceRequestBody)
-		.when().delete("/maps/api/place/delete/json")
-		.then().log().all().assertThat().statusCode(200);
+		requestSpecification=given().spec(getRequestSpecification()).body(deletePlaceRequestBody);
+
+		i_call_add_place_api_with_http_request("DeletePlaceAPI", "DELETE");
+		i_should_get_a_successful_response_with_status_code(200);
+		i_should_get_as("status", "OK");
 	}
 }
