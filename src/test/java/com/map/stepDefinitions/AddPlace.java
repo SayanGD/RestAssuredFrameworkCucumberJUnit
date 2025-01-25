@@ -20,7 +20,8 @@ public class AddPlace extends SpecificationBuilder
 	TestDataBuilder testDataBuilder=new TestDataBuilder();
 	RequestSpecification requestSpecification;
 	Response response;
-	String responseBody;
+	String placeID;
+	JsonPath js;
 
 	@Given("I have the AddPlace request body")
 	public void i_have_the_add_place_request_body() throws IOException
@@ -41,19 +42,23 @@ public class AddPlace extends SpecificationBuilder
 	@Then("I should get a successful response with {int} status code")
 	public void i_should_get_a_successful_response_with_status_code(int expectedResponseCode)
 	{
-		response=response.then().log().all().extract().response();
+		response=response.then().log().all().extract().response(); //updating the response
 		int actualResponseCode=response.getStatusCode();
 		Assert.assertEquals(expectedResponseCode, actualResponseCode);
-
-		responseBody = response.asString();
 	}
 
 	@Then("I should get {string} as {string}")
-	public void i_should_get_as(String attribute, String value)
+	public void i_should_get_as(String attribute, String expectedAttributeValue)
 	{
+		js=new JsonPath(response.asString());
+		String actualAttributeValue=js.getString(attribute);
+		Assert.assertEquals(expectedAttributeValue, actualAttributeValue);
+	}
 
-		JsonPath js=new JsonPath(responseBody);
-		String placeID=js.getString("place_id");
+	@Then("I should be able to delete the place")
+	public void i_should_be_able_to_delete_the_place()
+	{
+		placeID=js.getString("place_id");
 
 		String deletePlaceRequestBody=testDataBuilder.createDeletePlaceRequestBody(placeID);
 		given().spec(requestSpecification).log().all().body(deletePlaceRequestBody)
