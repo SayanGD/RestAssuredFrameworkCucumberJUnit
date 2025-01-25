@@ -29,4 +29,11 @@ public class TestDataBuilder
 		return addPlaceRequestBody;
 	}
 
+	public String createDeletePlaceRequestBody(String placeID)
+	{
+		return "{\r\n"
+				+ " \"place_id\":\""+placeID+"\"\r\n"
+				+ "}\r\n"
+				+ "";
+	}
 }

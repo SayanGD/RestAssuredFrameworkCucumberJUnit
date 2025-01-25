@@ -17,6 +17,7 @@ import com.map.utils.TestDataBuilder;
 public class AddPlace extends SpecificationBuilder
 {
 
+	TestDataBuilder testDataBuilder=new TestDataBuilder();
 	RequestSpecification requestSpecification;
 	Response response;
 	String responseBody;
@@ -24,7 +25,6 @@ public class AddPlace extends SpecificationBuilder
 	@Given("I have the AddPlace request body")
 	public void i_have_the_add_place_request_body() throws IOException
 	{
-		TestDataBuilder testDataBuilder=new TestDataBuilder();
 		AddPlaceRequest addPlaceRequestBody=testDataBuilder.createAddPlaceRequestBody();
 
 		requestSpecification=given().spec(getRequestSpecification()).body(addPlaceRequestBody);
@@ -55,11 +55,7 @@ public class AddPlace extends SpecificationBuilder
 		JsonPath js=new JsonPath(responseBody);
 		String placeID=js.getString("place_id");
 
-		String deletePlaceRequestBody="{\r\n"
-					+ "    \"place_id\":\""+placeID+"\"\r\n"
-					+ "}\r\n"
-					+ "";
-
+		String deletePlaceRequestBody=testDataBuilder.createDeletePlaceRequestBody(placeID);
 		given().spec(requestSpecification).log().all().body(deletePlaceRequestBody)
 		.when().delete("/maps/api/place/delete/json")
 		.then().log().all().assertThat().statusCode(200);
