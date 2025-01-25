@@ -3,8 +3,8 @@ package com.map.endpoints;
 public enum EndPoints
 {
 	AddPlaceAPI("/maps/api/place/add/json"),
-	GetPlaceAPI(""),
-	UpdatePlaceAPI(""),
+	GetPlaceAPI("/maps/api/place/get/json"),
+	UpdatePlaceAPI("/maps/api/place/update/json"),
 	DeletePlaceAPI("/maps/api/place/delete/json"),;
 
 	private String path;
