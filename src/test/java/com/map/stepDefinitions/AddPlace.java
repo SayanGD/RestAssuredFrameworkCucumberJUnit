@@ -20,16 +20,24 @@ public class AddPlace extends SpecificationBuilder
 	TestDataBuilder testDataBuilder=new TestDataBuilder();
 	RequestSpecification requestSpecification;
 	Response response;
-	String placeID;
+	static String placeID; //making it static so that multiple tests share the same value of the variable
 	JsonPath js;
 
-	@Given("I have the AddPlace request body")
-	public void i_have_the_add_place_request_body() throws IOException
+	@Given("I have the {string} request body")
+	public void i_have_the_request_body(String APIName) throws IOException
 	{
-		AddPlaceRequest addPlaceRequestBody=testDataBuilder.createAddPlaceRequestBody();
-
-		requestSpecification=given().spec(getRequestSpecification()).body(addPlaceRequestBody);
-		//getRequestSpecification() method is from parent SpecificationBuilder class created by me, so no object creation is needed to call it
+		switch(APIName)
+		{
+			case "AddPlace":
+					AddPlaceRequest addPlaceRequestBody=testDataBuilder.createAddPlaceRequestBody();
+					requestSpecification=given().spec(getRequestSpecification()).body(addPlaceRequestBody);
+					//getRequestSpecification() method is from parent SpecificationBuilder class created by me, so no object creation is needed to call it
+					break;
+			case "DeletePlace":
+					String deletePlaceRequestBody=testDataBuilder.createDeletePlaceRequestBody(placeID);
+					requestSpecification=given().spec(getRequestSpecification()).body(deletePlaceRequestBody);
+					break;
+		}		
 	}
 
 	@When("I call {string} with {string} HTTP request")
@@ -64,18 +72,7 @@ public class AddPlace extends SpecificationBuilder
 		js=new JsonPath(response.asString());
 		String actualAttributeValue=js.getString(attribute);
 		Assert.assertEquals(expectedAttributeValue, actualAttributeValue);
-	}
 
-	@Then("I should be able to delete the place")
-	public void i_should_be_able_to_delete_the_place() throws IOException
-	{
 		placeID=js.getString("place_id");
-
-		String deletePlaceRequestBody=testDataBuilder.createDeletePlaceRequestBody(placeID);
-		requestSpecification=given().spec(getRequestSpecification()).body(deletePlaceRequestBody);
-
-		i_call_add_place_api_with_http_request("DeletePlaceAPI", "DELETE");
-		i_should_get_a_successful_response_with_status_code(200);
-		i_should_get_as("status", "OK");
 	}
 }
