@@ -8,9 +8,8 @@ import io.cucumber.junit.CucumberOptions;
 @CucumberOptions(
 		features="src/test/java/features",
 		glue={"com.map.stepDefinitions"},
-		tags="@Regression"
+		tags="@DeletePlace"
 		)
-
 
 public class TestRunner
 {

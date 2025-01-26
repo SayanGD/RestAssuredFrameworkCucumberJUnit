@@ -43,12 +43,12 @@ public class AddPlace extends SpecificationBuilder
 	{
 		switch(APIName)
 		{
-			case "AddPlace":
+			case "AddPlaceAPI":
 					AddPlaceRequest addPlaceRequestBody=testDataBuilder.createAddPlaceRequestBody(name, phoneNumber, address, website, language);
 					requestSpecification=given().spec(getRequestSpecification()).body(addPlaceRequestBody);
 					//getRequestSpecification() method is from parent SpecificationBuilder class created by me, so no object creation is needed to call it
 					break;
-			case "DeletePlace":
+			case "DeletePlaceAPI":
 					String deletePlaceRequestBody=testDataBuilder.createDeletePlaceRequestBody(placeID);
 					requestSpecification=given().spec(getRequestSpecification()).body(deletePlaceRequestBody);
 					break;
@@ -56,7 +56,7 @@ public class AddPlace extends SpecificationBuilder
 	}
 
 	@When("I call {string} with {string} HTTP request")
-	public void i_call_add_place_api_with_http_request(String APIName, String HTTPMethod)
+	public void i_call_api_with_http_request(String APIName, String HTTPMethod)
 	{
 		String endPoint=EndPoints.valueOf(APIName).getPath(); //getting the relevant end-point from the Enum where all the end-points are kept
 
