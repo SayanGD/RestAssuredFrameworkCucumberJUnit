@@ -8,7 +8,7 @@ import io.cucumber.junit.CucumberOptions;
 @CucumberOptions(
 		features="src/test/java/features",
 		glue={"com.map.stepDefinitions"},
-		tags="@Regression",
+		tags="@DeletePlace",
 		plugin="json:target/jsonReports/cucumber-report.json"
 		)
 
