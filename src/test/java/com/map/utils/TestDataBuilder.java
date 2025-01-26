@@ -6,7 +6,7 @@ import com.map.pojoClasses.Location;
 
 public class TestDataBuilder
 {
-	public AddPlaceRequest createAddPlaceRequestBody()
+	public AddPlaceRequest createAddPlaceRequestBody(String name, String phoneNumber, String address, String website, String language)
 	{
 		Location location=new Location();
 		location.setLat(-38.383494);
@@ -19,12 +19,12 @@ public class TestDataBuilder
 		AddPlaceRequest addPlaceRequestBody=new AddPlaceRequest();
 		addPlaceRequestBody.setLocation(location);
 		addPlaceRequestBody.setAccuracy(50);
-		addPlaceRequestBody.setName("Frontline house");
-		addPlaceRequestBody.setPhone_number("+91-9838933937");
-		addPlaceRequestBody.setAddress("29, side layout, cohen 09");
+		addPlaceRequestBody.setName(name);
+		addPlaceRequestBody.setPhone_number(phoneNumber);
+		addPlaceRequestBody.setAddress(address);
 		addPlaceRequestBody.setTypes(types);
-		addPlaceRequestBody.setWebsite("http://www.google.com");
-		addPlaceRequestBody.setLanguage("French-IN");
+		addPlaceRequestBody.setWebsite(website);
+		addPlaceRequestBody.setLanguage(language);
 
 		return addPlaceRequestBody;
 	}

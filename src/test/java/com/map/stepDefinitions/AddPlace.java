@@ -22,6 +22,21 @@ public class AddPlace extends SpecificationBuilder
 	Response response;
 	static String placeID; //making it static so that multiple tests share the same value of the variable
 	JsonPath js;
+	String name;
+	String phoneNumber;
+	String address;
+	String website;
+	String language;
+
+	@Given("I have the {string}, {string}, {string}, {string}, {string} and {string}")
+	public void i_have_the_and(String string, String name, String phoneNumber, String address, String website, String language)
+	{
+	    this.name=name;
+	    this.phoneNumber=phoneNumber;
+	    this.address=address;
+	    this.website=website;
+	    this.language=language;
+	}
 
 	@Given("I have the {string} request body")
 	public void i_have_the_request_body(String APIName) throws IOException
@@ -29,7 +44,7 @@ public class AddPlace extends SpecificationBuilder
 		switch(APIName)
 		{
 			case "AddPlace":
-					AddPlaceRequest addPlaceRequestBody=testDataBuilder.createAddPlaceRequestBody();
+					AddPlaceRequest addPlaceRequestBody=testDataBuilder.createAddPlaceRequestBody(name, phoneNumber, address, website, language);
 					requestSpecification=given().spec(getRequestSpecification()).body(addPlaceRequestBody);
 					//getRequestSpecification() method is from parent SpecificationBuilder class created by me, so no object creation is needed to call it
 					break;
