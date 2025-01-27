@@ -14,7 +14,7 @@ import com.map.pojoClasses.AddPlaceRequest;
 import com.map.utils.SpecificationBuilder;
 import com.map.utils.TestDataBuilder;
 
-public class AddPlace extends SpecificationBuilder
+public class MapsStepDefinitions extends SpecificationBuilder
 {
 
 	TestDataBuilder testDataBuilder=new TestDataBuilder();
@@ -22,16 +22,24 @@ public class AddPlace extends SpecificationBuilder
 	Response response;
 	static String placeID; //making it static so that multiple tests share the same value of the variable
 	JsonPath js;
+	int accuracy;
 	String name;
 	String phoneNumber;
 	String address;
 	String website;
 	String language;
 
-	@Given("I have the {string}, {string}, {string}, {string}, {string} and {string}")
-	public void i_have_the_and(String string, String name, String phoneNumber, String address, String website, String language)
+	@Given("I have the {string}")
+	public void i_have_the_place_id(String placeID)
 	{
-	    this.name=name;
+		MapsStepDefinitions.placeID=placeID;
+	}
+
+	@Given("I have the {string}, {string}, {string}, {string}, {string} and {string}")
+	public void i_have_the_and(String accuracy, String name, String phoneNumber, String address, String website, String language)
+	{
+	    this.accuracy=Integer.parseInt(accuracy);
+		this.name=name;
 	    this.phoneNumber=phoneNumber;
 	    this.address=address;
 	    this.website=website;
@@ -49,6 +57,13 @@ public class AddPlace extends SpecificationBuilder
 					//getRequestSpecification() method is from parent SpecificationBuilder class created by me, so no object creation is needed to call it
 					break;
 			case "DeletePlaceAPI":
+					if(placeID==null) //placeID is static variable & it will be null only if add Place request hasn't been run already
+					{
+						i_have_the_and("50","Frontline house", "+91-9838933937", "29, side layout, cohen 09", "http://www.google.com", "French-IN");
+						i_have_the_request_body("AddPlaceAPI");
+						i_call_api_with_http_request("AddPlaceAPI", "POST");
+						i_should_get_as("status", "OK");
+					}
 					String deletePlaceRequestBody=testDataBuilder.createDeletePlaceRequestBody(placeID);
 					requestSpecification=given().spec(getRequestSpecification()).body(deletePlaceRequestBody);
 					break;
@@ -73,8 +88,8 @@ public class AddPlace extends SpecificationBuilder
 		}
 	}
 
-	@Then("I should get a successful response with {int} status code")
-	public void i_should_get_a_successful_response_with_status_code(int expectedResponseCode)
+	@Then("I should get a response with {int} status code")
+	public void i_should_get_a_response_with_status_code(int expectedResponseCode)
 	{
 		response=response.then().log().all().extract().response(); //updating the response
 		int actualResponseCode=response.getStatusCode();
@@ -89,5 +104,11 @@ public class AddPlace extends SpecificationBuilder
 		Assert.assertEquals(expectedAttributeValue, actualAttributeValue);
 
 		placeID=js.getString("place_id");
+	}
+
+	@Then("I should be able to retrieve the {string}, {string}, {string}, {string}, {string} and {string} using created placeID")
+	public void i_should_be_able_to_retrieve_the_and_using_created_place_id(String string, String string2, String string3, String string4, String string5, String string6)
+	{
+	    
 	}
 }

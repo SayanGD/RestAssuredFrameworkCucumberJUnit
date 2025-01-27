@@ -1,15 +1,21 @@
-Feature: Maps API
+Feature: Delete API in Maps
 
-  @ValidPlace
+	@DeletePlace @ValidPlaceID @Regression
   Scenario: Validate if a place is successfully deleted from the map using DeletePlace API
-		Given I have the "DeletePlace" request body
+		Given I have the "DeletePlaceAPI" request body
 		When I call "DeletePlaceAPI" with "DELETE" HTTP request
-		Then I should get a successful response with 200 status code
+		Then I should get a response with 200 status code
 		And I should get "status" as "OK"
 
-	@ValidPlace
-  Scenario: Validate if a place is successfully deleted from the map using DeletePlace API
-		Given I have the "DeletePlace" request body
+
+	@DeletePlace @InvalidPlaceID @Regression
+  Scenario Outline: Validate if DeletePlace API returns error message when a non-existent place is attempted to be deleted
+  	Given I have the "<place_id>"
+		And I have the "DeletePlaceAPI" request body
 		When I call "DeletePlaceAPI" with "DELETE" HTTP request
-		Then I should get a successful response with 200 status code
-		And I should get "status" as "OK"
+		Then I should get a response with 404 status code
+		And I should get "msg" as "Delete operation failed, looks like the data doesn't exists"
+
+	Examples:
+		|place_id													|
+		|42b39d7ff074ecf293593ca374fa171e	|
