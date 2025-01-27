@@ -5,7 +5,7 @@ import io.cucumber.java.After;
 
 public class Hooks
 {
-
+	/*Delete the added place to avoid junk data collection after each run*/
 	@After("@AddPlace")
 	public void deletePlaceAfterAdding() throws IOException
 	{
@@ -14,7 +14,7 @@ public class Hooks
 		{
 			stepDefinition.i_have_the_request_body("DeletePlaceAPI");
 			stepDefinition.i_call_api_with_http_request("DeletePlaceAPI", "DELETE");
-			stepDefinition.i_should_get_a_response_with_status_code(200);			
+			stepDefinition.i_should_get_a_response_with_status_code(200);
 		}
 	}
 }

@@ -66,6 +66,7 @@ public class MapsStepDefinitions extends SpecificationBuilder
 					}
 					String deletePlaceRequestBody=testDataBuilder.createDeletePlaceRequestBody(placeID);
 					requestSpecification=given().spec(getRequestSpecification()).body(deletePlaceRequestBody);
+					placeID=null; //setting it as null after each delete, since it's a static variable & multiple Delete test scenarios depend upon it
 					break;
 		}		
 	}
