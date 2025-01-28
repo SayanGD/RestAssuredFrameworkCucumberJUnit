@@ -63,10 +63,14 @@ public class MapsStepDefinitions extends SpecificationBuilder
 						i_have_the_request_body("AddPlaceAPI");
 						i_call_api_with_http_request("AddPlaceAPI", "POST");
 						i_should_get_as("status", "OK");
+						i_should_get_a_place_id_created();
 					}
 					String deletePlaceRequestBody=testDataBuilder.createDeletePlaceRequestBody(placeID);
 					requestSpecification=given().spec(getRequestSpecification()).body(deletePlaceRequestBody);
 					placeID=null; //setting it as null after each delete, since it's a static variable & multiple Delete test scenarios depend upon it
+					break;
+			case "GetPlaceAPI":
+					requestSpecification=given().spec(getRequestSpecification()).queryParam("place_id", placeID);
 					break;
 		}		
 	}
@@ -103,7 +107,11 @@ public class MapsStepDefinitions extends SpecificationBuilder
 		js=new JsonPath(response.asString());
 		String actualAttributeValue=js.getString(attribute);
 		Assert.assertEquals(expectedAttributeValue, actualAttributeValue);
+	}
 
+	@Then("I should get a placeID created")
+	public void i_should_get_a_place_id_created()
+	{
 		placeID=js.getString("place_id");
 	}
 

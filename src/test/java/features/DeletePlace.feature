@@ -18,4 +18,4 @@ Feature: Delete API in Maps
 
 	Examples:
 		|place_id													|
-		|42b39d7ff074ecf293593ca374fa171e	|
+		|dd86dc59ae9f8578091498d87628c104	|
