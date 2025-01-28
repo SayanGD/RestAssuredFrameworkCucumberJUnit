@@ -114,10 +114,4 @@ public class MapsStepDefinitions extends SpecificationBuilder
 	{
 		placeID=js.getString("place_id");
 	}
-
-	@Then("I should be able to retrieve the {string}, {string}, {string}, {string}, {string} and {string} using created placeID")
-	public void i_should_be_able_to_retrieve_the_and_using_created_place_id(String string, String string2, String string3, String string4, String string5, String string6)
-	{
-	    
-	}
 }
