@@ -6,7 +6,7 @@ import com.map.pojoClasses.Location;
 
 public class TestDataBuilder
 {
-	public AddPlaceRequest createAddPlaceRequestBody(String name, String phoneNumber, String address, String website, String language)
+	public AddPlaceRequest createAddPlaceRequestBody(int accuracy, String name, String phoneNumber, String address, String website, String language)
 	{
 		Location location=new Location();
 		location.setLat(-38.383494);

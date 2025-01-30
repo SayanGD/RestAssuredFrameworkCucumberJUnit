@@ -52,7 +52,7 @@ public class MapsStepDefinitions extends SpecificationBuilder
 		switch(APIName)
 		{
 			case "AddPlaceAPI":
-					AddPlaceRequest addPlaceRequestBody=testDataBuilder.createAddPlaceRequestBody(name, phoneNumber, address, website, language);
+					AddPlaceRequest addPlaceRequestBody=testDataBuilder.createAddPlaceRequestBody(accuracy, name, phoneNumber, address, website, language);
 					requestSpecification=given().spec(getRequestSpecification()).body(addPlaceRequestBody);
 					//getRequestSpecification() method is from parent SpecificationBuilder class created by me, so no object creation is needed to call it
 					break;
