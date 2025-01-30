@@ -59,7 +59,7 @@ public class MapsStepDefinitions extends SpecificationBuilder
 			case "DeletePlaceAPI":
 					if(placeID==null) //placeID is static variable & it will be null only if add Place request hasn't been run already
 					{
-						i_have_the_and("50","Frontline house", "+91-9838933937", "29, side layout, cohen 09", "http://www.google.com", "French-IN");
+						i_have_the_and("50", "Frontline house", "+91-9838933937", "29, Side Layout, Cohen 09", "http://www.google.com", "French-IN");
 						i_have_the_request_body("AddPlaceAPI");
 						i_call_api_with_http_request("AddPlaceAPI", "POST");
 						i_should_get_as("status", "OK");

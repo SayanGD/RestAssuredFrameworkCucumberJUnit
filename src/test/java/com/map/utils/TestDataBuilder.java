@@ -18,7 +18,7 @@ public class TestDataBuilder
 
 		AddPlaceRequest addPlaceRequestBody=new AddPlaceRequest();
 		addPlaceRequestBody.setLocation(location);
-		addPlaceRequestBody.setAccuracy(50);
+		addPlaceRequestBody.setAccuracy(accuracy);
 		addPlaceRequestBody.setName(name);
 		addPlaceRequestBody.setPhone_number(phoneNumber);
 		addPlaceRequestBody.setAddress(address);
