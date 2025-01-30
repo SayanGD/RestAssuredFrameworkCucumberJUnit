@@ -16,4 +16,4 @@ Feature: Add a place to Maps API
 
 	Examples:
 		|accuracy	|name					|phone number		|address									|website							|language		|
-		|41				|Backline Home|+91-9838933937	|41, Side Layout, Cohen 9	|http://www.google.com|Spanish-ES	|
+		|4141			|Backline Home|+91-9838933937	|41, Side Street, Cohen 9	|http://www.yahoo.com	|Spanish-ES	|
