@@ -1,4 +1,4 @@
-Feature: Delete API in Maps
+Feature: Delete a place from Maps API
 
 	@DeletePlace @ValidPlaceID @Regression
   Scenario: Validate if a place is successfully deleted from the map using DeletePlace API

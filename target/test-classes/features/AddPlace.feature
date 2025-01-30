@@ -1,4 +1,4 @@
-Feature: Maps API
+Feature: Add a place to Maps API
 
 	@AddPlace @GetPlace @Regression
 	Scenario Outline: Validate if a place is successfully added to the map using AddPlace API
